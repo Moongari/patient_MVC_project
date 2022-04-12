@@ -30,6 +30,10 @@ public class PatientController {
         // il faut definir un retour non plus comme une liste mais comme une page.
         Page<Patient> pagePatient = patientRepository.findAll(PageRequest.of(page,size));
         model.addAttribute("listePatient",pagePatient.getContent());
+        //definit dans un tableau le nombre de pages Total
+        model.addAttribute("pages", new int[pagePatient.getTotalPages()]);
+        // on definit la page courante , la page cliqué devient la page courante
+        model.addAttribute("current",page);
         return "patients"; // retourne une vue de type patients.html
     }
 

@@ -9,7 +9,13 @@
 
 <div class="container mt-2">
     <div class="card">
-        <div class="card-header"><h3 class="h3 align-content-center">Liste des patients </h3></div>
+        <div class="card-header"><h3 class="align-content-lg-center">Liste des patients </h3></div>
+
+        <form method="get" th:action="@{index}" class="mt-2">
+            <label class="m-3"> Mot clé : </label>
+            <input type="text" name="motcle">
+            <input type="submit" class="btn btn-primary" value="Rechercher">
+        </form>
 
         <div class="card-body">
 
@@ -36,6 +42,21 @@
                 </tr>
                 </tbody>
             </table>
+                    <!--afin d'afficher les valeurs il faut prendre l'index du tableab pages et non pas les valeurs
+                    qui sont a zero car c'est un tableau de Int[]-->
+
+            <!--thymeleaf fait appel au controller et lui pass en parametre le numero de page @{index()}-->
+            <ul class="nav nav-pills">
+                <li th:each="page,status:${pages}">
+                    <a
+                            th:class="${status.index==current ? 'btn btn-info m-lg-1 ':'btn btn-outline-info m-lg-1'}"
+                            th:text="${status.index}"
+
+                            th:href="@{index(page=${status.index})}"
+
+                    ></a>
+                </li>
+            </ul>
 
         </div>
     </div>
