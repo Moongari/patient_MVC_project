@@ -39,7 +39,7 @@
                     <td th:text="${p.isMalade()}"></td>
                     <td th:text="${p.getScore()}"></td>
                     <td>
-                        <a class="btn btn-danger " th:href="@{delete(id=${p.getId()})}">Supprimer</a>
+                        <a class="btn btn-danger " th:href="@{delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
                     </td>
 
                 </tr>

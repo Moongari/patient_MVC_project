@@ -10,9 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,7 +36,7 @@ public class PatientController {
 
         Page<Patient> pagePatient = patientRepository.findByNomContains(motcle,PageRequest.of(page,size));
         model.addAttribute("listePatient",pagePatient.getContent());
-        
+
         //definit dans un tableau le nombre de pages Total
         model.addAttribute("pages", new int[pagePatient.getTotalPages()]);
 
@@ -55,11 +53,24 @@ public class PatientController {
 
 
     @GetMapping("/delete")
-    public String Delete( Long id){
+    public String Delete( Long id,String motcle, int page){
 
         patientRepository.deleteById(id);
         log.info("suppression du patient dont l'id est {}",id);
-        return "redirect:/index";
+        return "redirect:/index?page="+page+"&motcle="+motcle;
+    }
+
+
+    // Dans le cas ou je ne veux pas utiliser Thymeleaf cote serveur mais exposé mes données
+    //cote client je peux creer la requete suivante tout en utilisant @Controller
+    // je crée une api getMapping("/patients")
+    //et je renvoie la reponse au format Json ceci pourra etre consommé par un application Client
+
+    @GetMapping("/patients")
+    @ResponseBody
+    public List<Patient> listeDesPatients(){
+
+        return patientRepository.findAll();
     }
 
 
