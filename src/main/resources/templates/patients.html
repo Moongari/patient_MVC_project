@@ -13,7 +13,7 @@
 
         <form method="get" th:action="@{index}" class="mt-2">
             <label class="m-3"> Mot clé : </label>
-            <input type="text" name="motcle">
+            <input type="text" name="motcle" th:value="${motcle}">
             <input type="submit" class="btn btn-primary" value="Rechercher">
         </form>
 
@@ -38,6 +38,9 @@
                     <td th:text="${p.getDateDeNaissance()}"></td>
                     <td th:text="${p.isMalade()}"></td>
                     <td th:text="${p.getScore()}"></td>
+                    <td>
+                        <a class="btn btn-danger " th:href="@{delete(id=${p.getId()})}">Supprimer</a>
+                    </td>
 
                 </tr>
                 </tbody>
@@ -52,7 +55,7 @@
                             th:class="${status.index==current ? 'btn btn-info m-lg-1 ':'btn btn-outline-info m-lg-1'}"
                             th:text="${status.index}"
 
-                            th:href="@{index(page=${status.index})}"
+                            th:href="@{index(page=${status.index},motcle=${motcle})}"
 
                     ></a>
                 </li>

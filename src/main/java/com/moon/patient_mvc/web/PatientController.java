@@ -4,10 +4,13 @@ package com.moon.patient_mvc.web;
 import com.moon.patient_mvc.entities.Patient;
 import com.moon.patient_mvc.repositories.PatientRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,24 +23,44 @@ import java.util.List;
 public class PatientController {
 
     private PatientRepository patientRepository;
+    private static final Logger log = LoggerFactory.getLogger(PatientController.class);
 
 
     @GetMapping(path = "/index")
     public  String patient(Model model,
                            @RequestParam(name = "page",defaultValue = "0") int page,
-                           @RequestParam(name = "size",defaultValue = "5") int size){
+                           @RequestParam(name = "size",defaultValue = "5") int size,
+                           @RequestParam(name = "motcle",defaultValue = "") String motcle){
 
         // il faut definir un retour non plus comme une liste mais comme une page.
-        Page<Patient> pagePatient = patientRepository.findAll(PageRequest.of(page,size));
+
+        //on crée une nouvelle requete a laquelle on passe notre mot clé
+
+        Page<Patient> pagePatient = patientRepository.findByNomContains(motcle,PageRequest.of(page,size));
         model.addAttribute("listePatient",pagePatient.getContent());
+        
         //definit dans un tableau le nombre de pages Total
         model.addAttribute("pages", new int[pagePatient.getTotalPages()]);
+
         // on definit la page courante , la page cliqué devient la page courante
         model.addAttribute("current",page);
+
+        model.addAttribute("motcle",motcle);
+
+        log.info("Recherche du patient par mot cle : {}", motcle);
+
         return "patients"; // retourne une vue de type patients.html
     }
 
 
+
+    @GetMapping("/delete")
+    public String Delete( Long id){
+
+        patientRepository.deleteById(id);
+        log.info("suppression du patient dont l'id est {}",id);
+        return "redirect:/index";
+    }
 
 
 
