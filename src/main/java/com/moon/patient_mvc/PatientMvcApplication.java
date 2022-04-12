@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.Random;
 
 @SpringBootApplication
 public class PatientMvcApplication {
@@ -24,7 +25,7 @@ public class PatientMvcApplication {
 
         return args -> {
 
-            patientRepository.save(new Patient(null,"Albert",new Date(),false,34));
+            patientRepository.save(new Patient(null,"Albert",new Date(),false, (int) (Math.random()*343)));
             patientRepository.save(new Patient(null,"John",new Date(),true,1344));
             patientRepository.save(new Patient(null,"Phil",new Date(),true,3421));
             patientRepository.save(new Patient(null,"Lucette",new Date(),true,3566));
