@@ -10,8 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -87,6 +90,21 @@ public class PatientController {
         return "formPatient";
     }
 
+
+    @PostMapping(path = "/save")
+    public String save(Model model, @Valid Patient patient, BindingResult result){
+
+        if(result.hasErrors()){
+            return "formPatient";
+        }
+
+        if(patient.getDateDeNaissance() == null){
+            patient.setDateDeNaissance(new Date());
+        }
+
+        patientRepository.save(patient);
+        return "redirect:/formPatient";
+    }
 
 
 }

@@ -42,6 +42,9 @@
                         <td>
                             <a class="btn btn-danger " th:href="@{delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
                         </td>
+                        <td>
+                            <a class="btn btn-success " th:href="@{editPatient(id=${p.getId()},motcle=${motcle},page=${current})}">Editer</a>
+                        </td>
 
                     </tr>
                     </tbody>

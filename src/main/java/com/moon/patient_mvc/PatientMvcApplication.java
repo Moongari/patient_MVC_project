@@ -20,12 +20,12 @@ public class PatientMvcApplication {
 
 
 
-    @Bean
+   // @Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
 
         return args -> {
 
-            patientRepository.save(new Patient(null,"Albert",new Date(),false, (int) (Math.random()*343)));
+            patientRepository.save(new Patient(null,"Albert",new Date(),false, (int) (Math.random()*500)));
             patientRepository.save(new Patient(null,"John",new Date(),true,1344));
             patientRepository.save(new Patient(null,"Phil",new Date(),true,3421));
             patientRepository.save(new Patient(null,"Lucette",new Date(),true,3566));

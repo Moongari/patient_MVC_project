@@ -12,30 +12,31 @@
 
 <div class="col-md-6 offset-3">
     <form method="post" th:action="@{save}">
+
         <div>
-            <label>Nom</label>
-            <input class="form-control" type="text" name="nom" th:value="${patient.getNom()}">
-            <span th:onerror="${patient.getNom()}"></span>
+            <label for="nom">Nom</label>
+            <input id="nom"class="form-control" type="text" name="nom" th:value="${patient.nom}">
+            <span  class="text-danger" th:errors="${patient.nom}"></span>
         </div>
 
         <div>
-            <label>Date de Naissance</label>
-            <input class="form-control" type="text" name="dateNaissance" th:value="${patient.getDateDeNaissance()}">
-            <span th:onerror="${patient.getDateDeNaissance()}"></span>
+            <label for="birthday">Birthday</label>
+            <input type="date"  class="form-control"id="birthday" name="birthday" th:value="${patient.dateDeNaissance}">
+            <span class="text-danger" th:errors="${patient.dateDeNaissance}"></span>
         </div>
 
         <div>
-            <label>Malade</label>
-            <input  type="checkbox" name="malade" th:checked="${patient.isMalade()}">
-            <span th:onerror="${patient.isMalade()}"></span>
+            <label for="ill">Malade</label>
+            <input id ="ill"type="checkbox" name="malade" th:checked="${patient.malade}">
+            <span class="text-danger" th:errors="${patient.malade}"></span>
         </div>
 
         <div>
-            <label>Score</label>
-            <input  class="form-control" type="text" name="score" th:value="${patient.getScore()}">
-            <span th:onerror="${patient.getScore()}"></span>
+            <label for="score" >Score</label>
+            <input  id="score"class="form-control" type="text" name="score" th:value="${patient.score}">
+            <span class="text-danger" th:errors="${patient.score}"></span>
         </div>
-
+            <br>
         <button type="submit" class="btn btn-primary">Sauvegarder</button>
 
         </form>
