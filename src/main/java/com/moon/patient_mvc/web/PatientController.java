@@ -106,5 +106,17 @@ public class PatientController {
         return "redirect:/formPatient";
     }
 
+    @GetMapping("/editPatient")
+    public String editPatient(Model model,Long id){
+
+        Patient patient = patientRepository.findById(id).orElse(null);
+        if(patient == null){
+            throw  new RuntimeException("Patient introuvable dans la base de données");
+        }
+        model.addAttribute("editPatient",patient);
+
+        return "editPatient";
+    }
+
 
 }
