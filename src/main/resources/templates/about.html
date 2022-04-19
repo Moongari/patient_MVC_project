@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th ="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <title>a propos de </title>
 </head>
 <body>
-$END$
+<div layout:fragment="content">
+
+    <div class="card front">
+        <div class="blue"></div>
+        <div class="yellow"></div>
+        <div class="pink"></div>
+        <div class="dots"></div>
+        <div class="personal-intro">
+            <p>Krista Stone</p>
+            <p>Photographer Maker Doer</p>
+        </div>
+    </div>
+    <div class="card back">
+        <div class="yellow"></div>
+        <div class="top dots"></div>
+        <div class="personal-info">
+            <p>Krista Stone</p>
+            <p>Photographer. Maker. Doer.</p>
+            <p>123 Address St</p>
+            <p>Sacramento, CA 14234</p>
+            <p>567.890.1234</p>
+            <p>www.kristastone.com</p>
+            <p>@kristastone</p>
+        </div>
+        <div class="bottom dots"></div>
+        <div class="pink"></div>
+    </div>
+
+</div>
+
+
 </body>
 </html>

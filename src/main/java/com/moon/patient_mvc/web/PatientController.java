@@ -74,5 +74,19 @@ public class PatientController {
     }
 
 
+    @GetMapping("/about")
+    public  String about()
+    {
+        return "about";
+    }
+
+    @GetMapping("/formPatient")
+    public String formPatient(Model model){
+        model.addAttribute("patient",new Patient());
+
+        return "formPatient";
+    }
+
+
 
 }
