@@ -15,8 +15,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.inMemoryAuthentication().withUser("User1").password("1234").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("2030").roles("ADMIN");
+        // en indiquant {noop} on demande a spring security d'ignorer l'encryptage
+        //no password encoder 
+        auth.inMemoryAuthentication().withUser("User1").password("{noop}1234").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password("{noop}2030").roles("USER","ADMIN");
 
     }
 
