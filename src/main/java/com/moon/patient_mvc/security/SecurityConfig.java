@@ -50,6 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // ceci veut dire que toute requete devra s'authentifier
         http.authorizeHttpRequests().anyRequest().authenticated();
 
+        //afin de bloquer les urls en fonction des roles seul l'admin peut acceder a ces pages
+        http.authorizeHttpRequests().antMatchers("/delete/**","/edit/**","/save/**","/formPatient/**").hasRole("ADMIN");
+        http.authorizeHttpRequests().antMatchers("/index/**").hasRole("USER");
+
     }
 
 

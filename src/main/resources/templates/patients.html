@@ -40,10 +40,10 @@
                         <td th:text="${p.getDateDeNaissance()}"></td>
                         <td th:text="${p.isMalade()}"></td>
                         <td th:text="${p.getScore()}"></td>
-                        <td sec:authorize="hasRole('admin')">
+                        <td sec:authorize="hasRole('ADMIN')">
                             <a class="btn btn-danger " th:href="@{delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
                         </td>
-                        <td>
+                        <td sec:authorize="hasRole('ADMIN')">
                             <a class="btn btn-success " th:href="@{editPatient(id=${p.getId()},motcle=${motcle},page=${current})}">Editer</a>
                         </td>
 
