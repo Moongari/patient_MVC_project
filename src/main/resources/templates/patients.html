@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th ="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +40,7 @@
                         <td th:text="${p.getDateDeNaissance()}"></td>
                         <td th:text="${p.isMalade()}"></td>
                         <td th:text="${p.getScore()}"></td>
-                        <td>
+                        <td sec:authorize="hasRole('admin')">
                             <a class="btn btn-danger " th:href="@{delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
                         </td>
                         <td>

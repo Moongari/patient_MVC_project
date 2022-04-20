@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 
 <head>
     <meta charset="UTF-8">
@@ -39,9 +41,11 @@
         </ul>
             <ul class="navbar-nav navbar-right">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">UserName</a>
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <span sec:authentication="name"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/formPatient}">LogOut</a></li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">LogOut</a></li>
                     </ul>
                 </li>
             </ul>

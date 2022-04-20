@@ -1,24 +1,43 @@
 package com.moon.patient_mvc.security;
 
+
+import org.slf4j.Logger;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // en indiquant {noop} on demande a spring security d'ignorer l'encryptage
-        //no password encoder 
-        auth.inMemoryAuthentication().withUser("User1").password("{noop}1234").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("{noop}2030").roles("USER","ADMIN");
+
+        logger.info("============================SECURITY======================================");
+        // Nous allons utiliser l'encodage de password
+        PasswordEncoder passwordEncoder = passwordEncoder();
+        String passWordUser = passwordEncoder.encode("1234");
+        String passWordAdmin = passwordEncoder.encode("2030");
+
+/*        logger.info("PassWord user1 {}",passWordUser);
+        logger.info("PassWord admin {}",passWordAdmin);*/
+
+        logger.info("==================================================================");
+        auth.inMemoryAuthentication().withUser("user1").password(passWordUser).roles("USER");
+        auth.inMemoryAuthentication().withUser("admin").password(passWordAdmin).roles("USER","ADMIN");
 
     }
 
@@ -31,5 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // ceci veut dire que toute requete devra s'authentifier
         http.authorizeHttpRequests().anyRequest().authenticated();
 
+    }
+
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
