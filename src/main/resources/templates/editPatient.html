@@ -11,11 +11,11 @@
 <div layout:fragment="content">
 
 <div class="col-md-6 offset-3">
-    <form method="post" th:action="@{save}">
+    <form method="post" th:action="@{save(page=${page},motcle=${motcle})}">
 
         <div>
             <label for="id">Id</label>
-            <input id="id"class="form-control" type="text" name="id" th:value="${editPatient.id}">
+            <input id="id"class="form-control" type="text" name="id" th:value="${editPatient.id}" >
         </div>
 
         <div>
@@ -26,7 +26,7 @@
 
         <div>
             <label for="birthday">Birthday</label>
-            <input type="date"  class="form-control"id="birthday" name="birthday" th:value="${editPatient.dateDeNaissance}">
+            <input type="text"  id="birthday" class="form-control" name="birthday" th:value="${editPatient.dateDeNaissance}">
             <span class="text-danger" th:errors="${editPatient.dateDeNaissance}"></span>
         </div>
 

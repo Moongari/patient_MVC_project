@@ -92,7 +92,11 @@ public class PatientController {
 
 
     @PostMapping(path = "/save")
-    public String save(Model model, @Valid Patient patient, BindingResult result){
+    public String save(Model model, @Valid Patient patient, BindingResult result,
+                       @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "") String motCle){
+
+
 
         if(result.hasErrors()){
             return "formPatient";
@@ -103,17 +107,20 @@ public class PatientController {
         }
 
         patientRepository.save(patient);
-        return "redirect:/formPatient";
+        return "redirect:/index?page="+page+"&motcle="+motCle;
     }
 
     @GetMapping("/editPatient")
-    public String editPatient(Model model,Long id){
+    public String editPatient(Model model,Long id,String motCle, int page){
 
         Patient patient = patientRepository.findById(id).orElse(null);
         if(patient == null){
             throw  new RuntimeException("Patient introuvable dans la base de données");
         }
         model.addAttribute("editPatient",patient);
+        model.addAttribute("motcle" ,motCle);
+        model.addAttribute("page",page);
+
 
         return "editPatient";
     }
