@@ -51,8 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests().anyRequest().authenticated();
 
         //afin de bloquer les urls en fonction des roles seul l'admin peut acceder a ces pages
-        http.authorizeHttpRequests().antMatchers("/delete/**","/edit/**","/save/**","/formPatient/**").hasRole("ADMIN");
-        http.authorizeHttpRequests().antMatchers("/index/**").hasRole("USER");
+        http.authorizeRequests().antMatchers("/delete/**","/edit/**","/save/**","/formPatient/**").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/index/**").hasRole("USER");
+        http.exceptionHandling().accessDeniedPage("/notAccessPage");
+
 
     }
 
