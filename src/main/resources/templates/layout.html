@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{index}">Home</a>
+                <a class="nav-link" th:href="@{/}">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/contact}">Contact Us</a>
@@ -33,20 +33,23 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Patients</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/formPatient}">Nouveau</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/formPatient}">Nouveau</a></li>
                     <li><a class="dropdown-item" th:href="@{index}">Chercher</a></li>
-                    <li><a class="dropdown-item" href="#">Modifier</a></li>
+
                 </ul>
             </li>
         </ul>
-            <ul class="navbar-nav navbar-right">
+            <ul class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                         <span sec:authentication="name"></span>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" sec:authorize="isAuthenticated()">
                         <li><a class="dropdown-item" th:href="@{/logout}">LogOut</a></li>
                     </ul>
+                    <li class="nav-item active" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">login</a>
+                    </li>
                 </li>
             </ul>
 

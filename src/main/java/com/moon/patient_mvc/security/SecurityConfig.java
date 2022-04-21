@@ -43,17 +43,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.formLogin();
+        http.csrf().disable();
         // il est possible de creer sa propre page
         //http.formLogin().loginPage("/login");
 
+        // aucune authentification necessaire pour ces ressources
+        http.authorizeRequests().mvcMatchers("/","/about/**").permitAll();
+        //afin de bloquer les urls en fonction des roles seul l'admin peut acceder" a ces pages
+        http.authorizeRequests().mvcMatchers("/delete/**","/edit/**","/save/**").hasRole("ADMIN");
+        http.authorizeRequests().mvcMatchers("/index/**").hasRole("USER");
         // ceci veut dire que toute requete devra s'authentifier
         http.authorizeHttpRequests().anyRequest().authenticated();
-
-        //afin de bloquer les urls en fonction des roles seul l'admin peut acceder a ces pages
-        http.authorizeRequests().antMatchers("/delete/**","/edit/**","/save/**","/formPatient/**").hasRole("ADMIN");
-        http.authorizeRequests().antMatchers("/index/**").hasRole("USER");
         http.exceptionHandling().accessDeniedPage("/notAccessPage");
+
+
+
 
 
     }

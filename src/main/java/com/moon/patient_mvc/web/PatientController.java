@@ -126,4 +126,11 @@ public class PatientController {
     }
 
 
+    @GetMapping(path = "/")
+    public  String home(){
+        return "home";
+    }
+
+
+
 }

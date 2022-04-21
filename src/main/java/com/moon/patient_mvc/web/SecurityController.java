@@ -13,6 +13,7 @@ public class SecurityController {
     //creation d'un controller qui gere le fait de ne pas pouvoir acceder a certaines ressources du site.
     @GetMapping("/403")
     public String notAuthorize(){
+
         return "notAccessPage";
     }
     // gestion des acces
