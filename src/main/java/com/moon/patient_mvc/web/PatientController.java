@@ -27,7 +27,7 @@ public class PatientController {
     private static final Logger log = LoggerFactory.getLogger(PatientController.class);
 
 
-    @GetMapping(path = "/index")
+    @GetMapping(path = "/user/index")
     public  String patient(Model model,
                            @RequestParam(name = "page",defaultValue = "0") int page,
                            @RequestParam(name = "size",defaultValue = "5") int size,
@@ -55,12 +55,12 @@ public class PatientController {
 
 
 
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String Delete( Long id,String motcle, int page){
 
         patientRepository.deleteById(id);
         log.info("suppression du patient dont l'id est {}",id);
-        return "redirect:/index?page="+page+"&motcle="+motcle;
+        return "redirect:/user/index?page="+page+"&motcle="+motcle;
     }
 
 
@@ -83,7 +83,7 @@ public class PatientController {
         return "about";
     }
 
-    @GetMapping("/formPatient")
+    @GetMapping("/admin/formPatient")
     public String formPatient(Model model){
         model.addAttribute("patient",new Patient());
 
@@ -91,7 +91,7 @@ public class PatientController {
     }
 
 
-    @PostMapping(path = "/save")
+    @PostMapping(path = "/admin/save")
     public String save(Model model, @Valid Patient patient, BindingResult result,
                        @RequestParam(defaultValue = "0") int page,
                        @RequestParam(defaultValue = "") String motCle){
@@ -107,10 +107,10 @@ public class PatientController {
         }
 
         patientRepository.save(patient);
-        return "redirect:/index?page="+page+"&motcle="+motCle;
+        return "redirect:/user/index?page="+page+"&motcle="+motCle;
     }
 
-    @GetMapping("/editPatient")
+    @GetMapping("/admin/editPatient")
     public String editPatient(Model model,Long id,String motCle, int page){
 
         Patient patient = patientRepository.findById(id).orElse(null);

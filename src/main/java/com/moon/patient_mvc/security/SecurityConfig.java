@@ -52,8 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // aucune authentification necessaire pour ces ressources
         http.authorizeRequests().mvcMatchers("/","/about/**").permitAll();
         //afin de bloquer les urls en fonction des roles seul l'admin peut acceder" a ces pages
-        http.authorizeRequests().mvcMatchers("/delete/**","/edit/**","/save/**").hasRole("ADMIN");
-        http.authorizeRequests().mvcMatchers("/index/**").hasRole("USER");
+        http.authorizeRequests().mvcMatchers("/admin/**").hasRole("ADMIN");
+        http.authorizeRequests().mvcMatchers("/user/**").hasRole("USER");
         // ceci veut dire que toute requete devra s'authentifier
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/notAccessPage");

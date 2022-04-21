@@ -13,7 +13,7 @@
     <div class="container mt-2">
         <div class="card">
             <div class="card-header"><h3 class="align-content-lg-center">Liste des patients </h3></div>
-            <form method="get" th:action="@{index}" class="mt-2">
+            <form method="get" th:action="@{/user/index}" class="mt-2">
                 <label class="m-3"> Mot clé : </label>
                 <input type="text" name="motcle" th:value="${motcle}">
                 <input type="submit" class="btn btn-primary" value="Rechercher">
@@ -41,10 +41,10 @@
                         <td th:text="${p.isMalade()}"></td>
                         <td th:text="${p.getScore()}"></td>
                         <td sec:authorize="hasRole('ADMIN')">
-                            <a class="btn btn-danger " th:href="@{delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
+                            <a class="btn btn-danger " th:href="@{/admin/delete(id=${p.getId()},motcle=${motcle},page=${current})}">Supprimer</a>
                         </td>
                         <td sec:authorize="hasRole('ADMIN')">
-                            <a class="btn btn-success " th:href="@{editPatient(id=${p.getId()},motcle=${motcle},page=${current})}">Editer</a>
+                            <a class="btn btn-success " th:href="@{/admin/editPatient(id=${p.getId()},motcle=${motcle},page=${current})}">Editer</a>
                         </td>
 
                     </tr>
@@ -60,7 +60,7 @@
                                 th:class="${status.index==current ? 'btn btn-info m-lg-1 ':'btn btn-outline-info m-lg-1'}"
                                 th:text="${status.index}"
 
-                                th:href="@{index(page=${status.index},motcle=${motcle})}"
+                                th:href="@{/user/index(page=${status.index},motcle=${motcle})}"
 
                         ></a>
                     </li>
